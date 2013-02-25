@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   ## the sub! line in the Rakefile
   s.name              = 'data_table'
   s.version           = '0.0.1'
-  s.date              = '2013-02-20'
+  s.date              = '2013-02-25'
   s.rubyforge_project = 'data_table'
 
   ## Make sure your summary is short. The description may be as long
@@ -58,44 +58,20 @@ Gem::Specification.new do |s|
   # = MANIFEST =
   s.files = %w[
     Gemfile
-    HISTORY.md
+    Gemfile.lock
     LICENSE
     README.md
     Rakefile
-    lib/timely.rb
-    lib/timely/date.rb
-    lib/timely/date_chooser.rb
-    lib/timely/date_range.rb
-    lib/timely/date_time.rb
-    lib/timely/rails.rb
-    lib/timely/rails/date_group.rb
-    lib/timely/rails/date_range_validity_module.rb
-    lib/timely/rails/extensions.rb
-    lib/timely/rails/season.rb
-    lib/timely/railtie.rb
-    lib/timely/range.rb
-    lib/timely/string.rb
-    lib/timely/temporal_patterns/finder.rb
-    lib/timely/temporal_patterns/frequency.rb
-    lib/timely/temporal_patterns/interval.rb
-    lib/timely/temporal_patterns/pattern.rb
-    lib/timely/time.rb
-    lib/timely/trackable_date_set.rb
-    lib/timely/week_days.rb
-    rails/init.rb
-    spec/date_chooser_spec.rb
-    spec/date_group_spec.rb
-    spec/date_range_spec.rb
-    spec/date_spec.rb
-    spec/schema.rb
-    spec/season_spec.rb
+    data_table.gemspec
+    lib/data_table.rb
+    lib/data_table/col_group.rb
+    lib/data_table/data_col.rb
+    lib/data_table/data_row.rb
+    lib/data_table/data_row_group.rb
+    lib/data_table/data_table.rb
+    lib/data_table/result_group.rb
+    spec/data_table_spec.rb
     spec/spec_helper.rb
-    spec/string_spec.rb
-    spec/temporal_patterns_spec.rb
-    spec/time_spec.rb
-    spec/trackable_date_set_spec.rb
-    spec/week_days_spec.rb
-    timely.gemspec
   ]
   # = MANIFEST =
 
