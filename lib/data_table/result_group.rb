@@ -5,7 +5,7 @@ module DataTable
     attr_accessor :sum
 
     def initialize(group_object, rows, total_levels = 0)
-      @group_object = group_object.blank? ? nil : group_object.to_s
+      @group_object = (group_object.blank? && group_object != false) ? nil : group_object.to_s
       @rows  = rows
       @level = 0
       @total_levels = total_levels
