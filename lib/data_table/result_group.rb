@@ -28,7 +28,7 @@ module DataTable
     end
 
 
-    def group(groups)
+    def group(groups, order = nil)
       groups = [groups] unless groups.is_a?(Array)
 
       return if groups.empty?
@@ -36,7 +36,7 @@ module DataTable
 
       first_group = groups.shift
       new_group = if @rows.first.is_a? ResultGroup
-        @rows.map{|rg| [rg.group_object, rg.group_children(first_group)]}
+        @rows.map{|rg| [rg.group_object, rg.group_children(first_group, order)]}
       else
         if first_group == true
           {'All' => @rows}
@@ -48,6 +48,16 @@ module DataTable
           @rows.group_by{|r| r.send(first_group)}
         end
       end
+
+      new_group = case order.try(:to_sym)
+      when :group_name
+        Hash[new_group.sort { |a,b| a.first.to_s <=> b.first.to_s }]
+      when :row_count
+        Hash[new_group.sort { |a,b| b.last.size <=> a.last.size }]
+      else
+        new_group
+      end
+
       @total_levels += 1
       new_group.each do |group, rows|
         r = ResultGroup.new(group, rows, @total_levels)
@@ -56,17 +66,17 @@ module DataTable
       end
 
       @rows = new_rows
-      group(groups) unless groups.empty?
+      group(groups, order) unless groups.empty?
       @rows
     end
 
 
-    def group_children(group)
+    def group_children(group, order = nil)
       if @rows.first.is_a?(ResultGroup)
-        @rows.each{|r| r.group_children(group)}
+        @rows.each{|r| r.group_children(group, order)}
         @rows
       else
-        self.group(group)
+        self.group(group, order)
       end
     end
 
