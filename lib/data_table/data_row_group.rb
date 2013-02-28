@@ -15,16 +15,16 @@ module DataTable
 
       row_group.each do |row|
         if row.is_a? Hash
-          @children << DataRow.new(row[:data], self, row.except(:data).merge(type: type))
+          @children << DataRow.new(row[:data], self, row.except(:data).merge(:type => type))
         else
-          @children << DataRow.new(row, self, type: type)
+          @children << DataRow.new(row, self, :type => type)
         end
       end
       self
     end
 
     def <<(child)
-      @children << DataRow.new(child, self, type: type)
+      @children << DataRow.new(child, self, :type => type)
     end
 
     def to_csv

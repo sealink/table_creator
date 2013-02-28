@@ -55,10 +55,10 @@ module DataTable
     def to_html
       col_tag = type == :header ? :th : :td
       content = data_type == :money ? data.format : data
-      content = content_tag :a, content, href: link_to if link_to
-      content = content_tag :a, content, name: anchor if anchor
+      content = content_tag :a, content, :href => link_to if link_to
+      content = content_tag :a, content, :name => anchor if anchor
       tag_class = [options[:class].presence, data_type.presence].compact.join(' ')
-      attributes = options.except(:type).merge(class: tag_class, colspan: colspan)
+      attributes = options.except(:type).merge(:class => tag_class, :colspan => colspan)
 
       content_tag col_tag, content.to_s.gsub(/\n/, tag(:br)).html_safe, attributes
     end
