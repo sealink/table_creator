@@ -35,9 +35,9 @@ end
 
 describe DataTable::ResultGroup, 'when aggregating' do
   before do
-    @row1 = stub(:odd => true, :amount => 1, :quantity => 1)
-    @row2 = stub(:odd => false, :amount => 9, :quantity => 3)
-    @row3 = stub(:odd => true, :amount => 4, :quantity => 4)
+    @row1 = stub(:odd => true, :amount => Money.new(1), :quantity => 1)
+    @row2 = stub(:odd => false, :amount => Money.new(9), :quantity => 3)
+    @row3 = stub(:odd => true, :amount => Money.new(4), :quantity => 4)
     @rg = DataTable::ResultGroup.new(nil, [@row1, @row2, @row3])
   end
 
@@ -50,7 +50,7 @@ describe DataTable::ResultGroup, 'when aggregating' do
   it 'should aggregate on multiple levels' do
     @rg.sum.should be_nil
     @rg.aggregate(:amount => :sum, :quantity => :sum)
-    @rg.sum.should == {:amount => 14, :quantity => 8}
+    @rg.sum.should == {:amount => Money.new(14), :quantity => 8}
   end
 
   it 'should group and aggregate at each level' do
@@ -58,8 +58,27 @@ describe DataTable::ResultGroup, 'when aggregating' do
     @rg.sum.should be_nil
     @rg.aggregate(:amount => :sum, :quantity => :sum)
     @rg.rows[0].group_object.should == 'true'
-    @rg.rows[0].sum.should == {:amount => 5, :quantity => 5}
+    @rg.rows[0].sum.should == {:amount => Money.new(5), :quantity => 5}
     @rg.rows[1].group_object.should == 'false'
-    @rg.rows[1].sum.should == {:amount => 9, :quantity => 3}
+    @rg.rows[1].sum.should == {:amount => Money.new(9), :quantity => 3}
+  end
+end
+
+class Money
+  attr_accessor :cents
+  def initialize(cents)
+    @cents = cents
+  end
+
+  def +(money)
+    Money.new(@cents + money.cents)
+  end
+
+  def ==(money)
+    @cents == money.cents
+  end
+
+  def <=>(money)
+    @cents <=> money.cents
   end
 end

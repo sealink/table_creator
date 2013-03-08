@@ -91,25 +91,25 @@ module DataTable
       @sum ||= {}
 
       fields.each do |field, aggregation|
-        @sum[field] = 0
+        @sum[field] = nil
 
-        @rows.each do |row|
-
-          if row.is_a? ResultGroup
+        if @rows.first.is_a?(ResultGroup)
+          @sum[field] = @rows.map do |row|
             # agregate each lower levels
             row.aggregate(fields)
 
             case aggregation
             when :sum
-              @sum[field] += row.sum[field]
+              row.sum[field]
             end
-
-          else
+          end.compact.sum
+        else
+          @sum[field] = @rows.map do |row|
             case aggregation
             when :sum
-              @sum[field] += (row.send(field) || 0) # encase result is nil
+              row.send(field) || 0 # encase result is nil
             end
-          end
+          end.compact.sum
         end
       end
     end
