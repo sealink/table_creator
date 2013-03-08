@@ -81,30 +81,33 @@ module DataTable
     end
 
 
+    # fields is a hash where:
+    #   key is the field/method
+    #   value is the aggregate type (currently only :sum)
     def aggregate(fields)
+      invalid_aggregates = fields.values.uniq - [:sum]
+      raise Exception.new("Aggregation #{invalid_aggregates.to_sentence} not implemented") if invalid_aggregates.present?
+
       @sum ||= {}
 
       fields.each do |field, aggregation|
-        @sum[field] = nil
+        @sum[field] = 0
 
         @rows.each do |row|
 
           if row.is_a? ResultGroup
+            # agregate each lower levels
             row.aggregate(fields)
 
             case aggregation
             when :sum
-              @sum[field].nil? ? @sum[field] = row.sum[field] : @sum[field] += row.sum[field]
-            else
-              raise InvalidInputException, "Aggregation #{aggregation} not implemented"
+              @sum[field] += row.sum[field]
             end
 
           else
             case aggregation
             when :sum
-              @sum[field].nil? ? @sum[field] = row.send(field) : @sum[field] += (row.send(field) || 0)
-            else
-              raise InvalidInputException, "Aggregation #{aggregation} not implemented"
+              @sum[field] += (row.send(field) || 0) # encase result is nil
             end
           end
         end

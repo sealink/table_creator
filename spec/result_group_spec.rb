@@ -33,3 +33,33 @@ describe DataTable::ResultGroup do
   end
 end
 
+describe DataTable::ResultGroup, 'when aggregating' do
+  before do
+    @row1 = stub(:odd => true, :amount => 1, :quantity => 1)
+    @row2 = stub(:odd => false, :amount => 9, :quantity => 3)
+    @row3 = stub(:odd => true, :amount => 4, :quantity => 4)
+    @rg = DataTable::ResultGroup.new(nil, [@row1, @row2, @row3])
+  end
+
+  it 'should not allow non standard/implemented aggregates' do
+    expect {
+      @rg.aggregate(:amount => :avg)
+    }.to raise_error(DataTable::Exception, 'Aggregation avg not implemented')
+  end
+
+  it 'should aggregate on multiple levels' do
+    @rg.sum.should be_nil
+    @rg.aggregate(:amount => :sum, :quantity => :sum)
+    @rg.sum.should == {:amount => 14, :quantity => 8}
+  end
+
+  it 'should group and aggregate at each level' do
+    @rg.group(:odd)
+    @rg.sum.should be_nil
+    @rg.aggregate(:amount => :sum, :quantity => :sum)
+    @rg.rows[0].group_object.should == 'true'
+    @rg.rows[0].sum.should == {:amount => 5, :quantity => 5}
+    @rg.rows[1].group_object.should == 'false'
+    @rg.rows[1].sum.should == {:amount => 9, :quantity => 3}
+  end
+end
