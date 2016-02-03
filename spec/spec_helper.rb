@@ -8,26 +8,7 @@
 require 'rubygems'
 require 'bundler/setup'
 
-COVERAGE_THRESHOLD = 73
-
-if ENV['COVERAGE']
-  require 'simplecov'
-  require 'simplecov-rcov'
-  SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-  SimpleCov.start do
-    add_filter '/vendor/'
-    add_filter '/spec/'
-    add_group 'lib', 'lib'
-  end
-  SimpleCov.at_exit do
-    SimpleCov.result.format!
-    percent = SimpleCov.result.covered_percent
-    unless percent >= COVERAGE_THRESHOLD
-      puts "Coverage must be above #{COVERAGE_THRESHOLD}%. It is #{"%.2f" % percent}%"
-      Kernel.exit(1)
-    end
-  end
-end
+require 'support/coverage_loader'
 
 require 'data_table'
 
