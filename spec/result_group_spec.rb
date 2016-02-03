@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe DataTable::ResultGroup do
   before do
-    @row1 = stub(:odd => true)
-    @row2 = stub(:odd => false)
-    @row3 = stub(:odd => true)
+    @row1 = double(:odd => true)
+    @row2 = double(:odd => false)
+    @row3 = double(:odd => true)
     @rg = DataTable::ResultGroup.new(nil, [@row1, @row2, @row3])
   end
 
@@ -35,9 +35,9 @@ end
 
 describe DataTable::ResultGroup, 'when aggregating' do
   before do
-    @row1 = stub(:odd => true, :amount => Money.new(1), :quantity => 1)
-    @row2 = stub(:odd => false, :amount => Money.new(9), :quantity => 3)
-    @row3 = stub(:odd => true, :amount => Money.new(4), :quantity => 4)
+    @row1 = double(:odd => true, :amount => Money.new(1), :quantity => 1)
+    @row2 = double(:odd => false, :amount => Money.new(9), :quantity => 3)
+    @row3 = double(:odd => true, :amount => Money.new(4), :quantity => 4)
     @rg = DataTable::ResultGroup.new(nil, [@row1, @row2, @row3])
   end
 
