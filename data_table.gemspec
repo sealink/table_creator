@@ -1,6 +1,11 @@
+# coding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'data_table/version'
+
 Gem::Specification.new do |spec|
   spec.name              = 'data_table'
-  spec.version           = '0.0.1'
+  spec.version           = DataTable::VERSION
   spec.date              = '2013-02-25'
   spec.summary     = "Manage sets of data and export."
   spec.description = "See README for full details on how to install, use, etc."
