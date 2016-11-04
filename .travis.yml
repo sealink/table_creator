@@ -1,13 +1,9 @@
 language: ruby
 rvm:
-  - 1.9.3
-  - 2.0.0
   - 2.3.0
 script: "bundle exec rake spec"
 notifications:
   email:
     - support@travellink.com.au
-  flowdock:
-    secure: d+HWaBqs2Kav/WtbMEiC5XZscwopjrQdK1HKg6fYQk9BslClL/bdN6QBEe7IU2eNVFTmXlEF2xijpxEMmFYKskieIqA1++JNw2qmGPhjxZ1BS21EdyJLgbKx8AI3kWXJNPKXyrUO3rzkfHZL6d2uRjrAoM2GWJ+p1C19O0lNLlM=
 sudo: false
 cache: bundler
