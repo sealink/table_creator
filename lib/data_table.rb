@@ -1,6 +1,4 @@
 module DataTable
-  VERSION = '0.0.1'
-
   require 'action_view'
   require 'active_support/all'
 
