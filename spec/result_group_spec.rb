@@ -44,7 +44,7 @@ describe DataTable::ResultGroup, 'when aggregating' do
 
   it 'should not allow non standard/implemented aggregates' do
     expect { subject.aggregate(amount: :avg) }.to raise_error(
-      DataTable::Exception,
+      DataTable::Error,
       'Aggregation avg not implemented'
     )
   end

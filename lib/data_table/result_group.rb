@@ -86,7 +86,7 @@ module DataTable
     #   value is the aggregate type (currently only :sum)
     def aggregate(fields)
       invalid_aggregates = fields.values.uniq - [:sum]
-      raise Exception.new("Aggregation #{invalid_aggregates.to_sentence} not implemented") if invalid_aggregates.present?
+      raise Error.new("Aggregation #{invalid_aggregates.to_sentence} not implemented") if invalid_aggregates.present?
 
       @sum ||= {}
 
