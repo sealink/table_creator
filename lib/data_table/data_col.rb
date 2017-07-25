@@ -54,7 +54,7 @@ module DataTable
     def to_html
       formatter = ::DataTable.formatters(:html)[@data.class]
       content = if formatter
-        result = formatter.call(@data)
+        result = formatter.is_a?(Symbol) ? @data.send(formatter) : formatter.call(@data)
         if result.is_a?(Hash)
           link_to = result[:link_to]
           anchor  = result[:anchor]
@@ -81,7 +81,7 @@ module DataTable
     def format_csv(data)
       formatter = ::DataTable.formatters(:csv)[data.class]
       return data unless formatter
-      result = formatter.call(data)
+      result = formatter.is_a?(Symbol) ? @data.send(formatter) : formatter.call(@data)
       if result.is_a?(Hash)
         result.fetch(:data)
       else

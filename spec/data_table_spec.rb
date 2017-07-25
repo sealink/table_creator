@@ -40,7 +40,7 @@ describe DataTable::DataTable do
       { link_to: "/bookings/#{booking.id}", data: booking.reference }
     }
     DataTable.add_formatter :csv, Money, proc { |money| money.to_s }
-    DataTable.add_formatter :csv, Booking, proc { |booking| booking.reference }
+    DataTable.add_formatter :csv, Booking, :reference
 
     subject << { body: [row] }
   end
