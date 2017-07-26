@@ -9,7 +9,7 @@ module DataTable
       @colgroups = []
       self
     end
-    
+
     def <<(child)
       if child.is_a? Array
         @children << DataRow.new(child, self)

@@ -18,8 +18,6 @@ module DataTable
       end
 
       @data_type = case @data.class.to_s.to_sym
-      when :Money
-        :money
       when :Fixnum
         :number
       when :String
@@ -44,8 +42,9 @@ module DataTable
     end
 
     def quote(data)
-      quoted = data.to_s.gsub('"', '\"')
-      if data.to_s.include?(',')
+      formatted_data = format_csv(data)
+      quoted = formatted_data.to_s.gsub('"', '\"')
+      if formatted_data.to_s.include?(',')
         '"'+quoted+'"'
       else
         quoted
@@ -53,14 +52,41 @@ module DataTable
     end
 
     def to_html
+      formatter = ::DataTable.formatters(:html)[@data.class]
+      content = if formatter
+        result = formatter.is_a?(Symbol) ? @data.send(formatter) : formatter.call(@data)
+        if result.is_a?(Hash)
+          link_to = result[:link_to]
+          anchor  = result[:anchor]
+          @options[:class] ||= @data.class.name.underscore
+          result.fetch(:data)
+        else
+          @options[:class] ||= @data.class.name.underscore
+          result
+        end
+      else
+        @data
+      end
       col_tag = type == :header ? :th : :td
-      content = data_type == :money ? data.format : data
       content = content_tag :a, content, :href => link_to if link_to
       content = content_tag :a, content, :name => anchor if anchor
       tag_class = [options[:class].presence, data_type.presence].compact.join(' ')
       attributes = options.except(:type).merge(:class => tag_class, :colspan => colspan)
 
       content_tag col_tag, content.to_s.gsub(/\n/, tag(:br)).html_safe, attributes
+    end
+
+    private
+
+    def format_csv(data)
+      formatter = ::DataTable.formatters(:csv)[data.class]
+      return data unless formatter
+      result = formatter.is_a?(Symbol) ? @data.send(formatter) : formatter.call(@data)
+      if result.is_a?(Hash)
+        result.fetch(:data)
+      else
+        result
+      end
     end
   end
 end
