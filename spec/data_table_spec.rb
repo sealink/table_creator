@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DataTable::Table do
+describe TableCreator::Table do
   let(:row) { ['col1', 2, Money.new(3), Booking.new(42, '22TEST')] }
   let(:money_class) {
     Class.new do
@@ -35,12 +35,12 @@ describe DataTable::Table do
   before do
     stub_const 'Money', money_class
     stub_const 'Booking', booking_class
-    DataTable.add_formatter :html, Money, proc { |money| money.format }
-    DataTable.add_formatter :html, Booking, proc { |booking|
+    TableCreator.add_formatter :html, Money, proc { |money| money.format }
+    TableCreator.add_formatter :html, Booking, proc { |booking|
       { link_to: "/bookings/#{booking.id}", data: booking.reference }
     }
-    DataTable.add_formatter :csv, Money, proc { |money| money.to_s }
-    DataTable.add_formatter :csv, Booking, :reference
+    TableCreator.add_formatter :csv, Money, proc { |money| money.to_s }
+    TableCreator.add_formatter :csv, Booking, :reference
 
     subject << { body: [row] }
   end

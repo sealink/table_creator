@@ -1,4 +1,4 @@
-module DataTable
+module TableCreator
   class Table
     include ActionView::Helpers::TagHelper
 

@@ -1,7 +1,7 @@
 # A group of rows
 #
 # Can be of type: [:header, :footer, :body]
-module DataTable
+module TableCreator
   class RowGroup
     include ActionView::Helpers::TagHelper
 

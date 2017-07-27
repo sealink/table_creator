@@ -1,4 +1,4 @@
-module DataTable
+module TableCreator
   class ResultGroup
     attr_accessor :group_object, :rows
     attr_accessor :level, :total_levels

@@ -1,13 +1,13 @@
-module DataTable
+module TableCreator
   require 'action_view'
   require 'active_support/all'
 
-  require 'data_table/table'
-  require 'data_table/col'
-  require 'data_table/row'
-  require 'data_table/row_group'
-  require 'data_table/col_group'
-  require 'data_table/result_group'
+  require 'table_creator/table'
+  require 'table_creator/col'
+  require 'table_creator/row'
+  require 'table_creator/row_group'
+  require 'table_creator/col_group'
+  require 'table_creator/result_group'
 
   def self.formatters(type)
     @formatters ||= {}
