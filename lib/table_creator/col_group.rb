@@ -1,4 +1,4 @@
-module DataTable
+module TableCreator
   class ColGroup
     include ActionView::Helpers::TagHelper
 

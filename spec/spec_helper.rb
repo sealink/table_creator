@@ -10,7 +10,7 @@ require 'bundler/setup'
 
 require 'support/coverage_loader'
 
-require 'data_table'
+require 'table_creator'
 
 RSpec.configure do |config|
   config.raise_errors_for_deprecations!

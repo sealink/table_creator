@@ -1,5 +1,5 @@
-Data Table
-==========
+Table Creator
+=============
 
 # DESCRIPTION
 

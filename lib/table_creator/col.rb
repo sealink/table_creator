@@ -1,4 +1,4 @@
-module DataTable
+module TableCreator
   class Col
     include ActionView::Helpers::TagHelper
 
@@ -52,7 +52,7 @@ module DataTable
     end
 
     def to_html
-      formatter = DataTable.formatters(:html)[@data.class]
+      formatter = TableCreator.formatters(:html)[@data.class]
       content = if formatter
         result = formatter.is_a?(Symbol) ? @data.send(formatter) : formatter.call(@data)
         if result.is_a?(Hash)
@@ -79,7 +79,7 @@ module DataTable
     private
 
     def format_csv(data)
-      formatter = DataTable.formatters(:csv)[data.class]
+      formatter = TableCreator.formatters(:csv)[data.class]
       return data unless formatter
       result = formatter.is_a?(Symbol) ? @data.send(formatter) : formatter.call(@data)
       if result.is_a?(Hash)

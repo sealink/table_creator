@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe DataTable::ResultGroup do
+describe TableCreator::ResultGroup do
   let(:row1) { double(odd: true) }
   let(:row2) { double(odd: false) }
   let(:row3) { double(odd: true) }
-  subject { DataTable::ResultGroup.new(nil, [row1, row2, row3]) }
+  subject { TableCreator::ResultGroup.new(nil, [row1, row2, row3]) }
 
   let(:row1_group) { subject.rows[0].group_object }
   let(:row1_rows) { subject.rows[0].rows }
@@ -36,15 +36,15 @@ describe DataTable::ResultGroup do
   end
 end
 
-describe DataTable::ResultGroup, 'when aggregating' do
+describe TableCreator::ResultGroup, 'when aggregating' do
   let(:row1) { double(odd: true, amount: Money.new(1), quantity: 1) }
   let(:row2) { double(odd: false, amount: Money.new(9), quantity: 3) }
   let(:row3) { double(odd: true, amount: Money.new(4), quantity: 4) }
-  subject { DataTable::ResultGroup.new(nil, [row1, row2, row3]) }
+  subject { TableCreator::ResultGroup.new(nil, [row1, row2, row3]) }
 
   it 'should not allow non standard/implemented aggregates' do
     expect { subject.aggregate(amount: :avg) }.to raise_error(
-      DataTable::Error,
+      TableCreator::Error,
       'Aggregation avg not implemented'
     )
   end
