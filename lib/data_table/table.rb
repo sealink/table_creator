@@ -1,5 +1,5 @@
 module DataTable
-  class DataTable
+  class Table
     include ActionView::Helpers::TagHelper
 
     attr_accessor :children, :colgroups
