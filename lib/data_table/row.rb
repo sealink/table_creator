@@ -1,5 +1,5 @@
 module DataTable
-  class DataRow
+  class Row
     include ActionView::Helpers::TagHelper
 
     attr_accessor :cols, :parent, :options
@@ -9,7 +9,7 @@ module DataTable
       @options = options
       @cols  = []
       row.each do |col|
-        @cols << DataCol.new(col, row, options[:type])
+        @cols << Col.new(col, row, options[:type])
       end
       self
     end
