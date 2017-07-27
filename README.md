@@ -5,14 +5,6 @@ Data Table
 
 Various helpers to enter data in a tabular form and export to HTML/CSV
 
-# INSTALLATION
+# USAGE
 
-gem install data_table
-
-or add to your Gemfile:
-gem 'data_table'
-
-# SYNOPSIS
-
-require 'data_table'
-
+See tests in spec folder for basic usage
