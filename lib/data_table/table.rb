@@ -12,11 +12,11 @@ module DataTable
 
     def <<(child)
       if child.is_a? Array
-        @children << DataRow.new(child, self)
+        @children << Row.new(child, self)
 
       else # hash of one or more types
         [:header, :footer, :body].each do |type|
-          @children << DataRowGroup.new(child[type], self, type) if child[type]
+          @children << RowGroup.new(child[type], self, type) if child[type]
         end
       end
     end
