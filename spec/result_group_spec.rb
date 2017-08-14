@@ -39,7 +39,7 @@ end
 describe TableCreator::ResultGroup, 'when aggregating' do
   let(:row1) { double(odd: true, amount: Money.new(1), quantity: 1) }
   let(:row2) { double(odd: false, amount: Money.new(9), quantity: 3) }
-  let(:row3) { double(odd: true, amount: Money.new(4), quantity: 4) }
+  let(:row3) { double(odd: true, amount: Money.new(4), quantity: 1) }
   subject { TableCreator::ResultGroup.new(nil, [row1, row2, row3]) }
 
   it 'should not allow non standard/implemented aggregates' do
@@ -52,7 +52,7 @@ describe TableCreator::ResultGroup, 'when aggregating' do
   it 'should aggregate on multiple levels' do
     expect(subject.sum).to be nil
     subject.aggregate(amount: :sum, quantity: :sum)
-    expect(subject.sum).to eq(amount: Money.new(14), quantity: 8)
+    expect(subject.sum).to eq(amount: Money.new(14), quantity: 5)
   end
 
   it 'should group and aggregate at each level' do
@@ -60,7 +60,7 @@ describe TableCreator::ResultGroup, 'when aggregating' do
     expect(subject.sum).to be nil
     subject.aggregate(amount: :sum, quantity: :sum)
     expect(subject.rows[0].group_object).to eq 'true'
-    expect(subject.rows[0].sum).to eq(amount: Money.new(5), quantity: 5)
+    expect(subject.rows[0].sum).to eq(amount: Money.new(5), quantity: 2)
     expect(subject.rows[1].group_object).to eq 'false'
     expect(subject.rows[1].sum).to eq(amount: Money.new(9), quantity: 3)
   end
