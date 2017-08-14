@@ -64,6 +64,28 @@ describe TableCreator::ResultGroup, 'when aggregating' do
     expect(subject.rows[1].group_object).to eq 'false'
     expect(subject.rows[1].sum).to eq(amount: Money.new(9), quantity: 3)
   end
+
+  context 'to_data_rows' do
+    subject {
+      result = TableCreator::ResultGroup.new(nil, [row1, row2, row3])
+      result.group([:odd, :quantity])
+      result.to_data_rows do |row_group, row|
+        [row_group.try(:group_object), row]
+      end
+    }
+
+    specify do
+      expect(subject).to eq [
+        { class: 'd1 l2 summary', data: ['true', nil] },
+        { class: 'd0 l2 summary', data: ['1', nil] },
+        [nil, row1],
+        [nil, row3],
+        { class: 'd1 l2 summary', data: ['false', nil] },
+        { class: 'd0 l2 summary', data: ['3', nil] },
+        [nil, row2]
+      ]
+    end
+  end
 end
 
 class Money
