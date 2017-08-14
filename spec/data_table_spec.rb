@@ -1,7 +1,14 @@
 require 'spec_helper'
 
 describe TableCreator::Table do
-  let(:row) { ['col1', 2, Money.new(3), Booking.new(42, '22TEST')] }
+  let(:row) {
+    [
+      'col1',
+      2,
+      Money.new(3),
+      Booking.new(42, '22TEST')
+    ]
+  }
   let(:money_class) {
     Class.new do
       def initialize(dollars)
