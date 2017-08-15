@@ -67,6 +67,10 @@ module TableCreator
       else
         @data
       end
+
+      # Links are passed in manually too
+      link_to ||= @link_to
+
       col_tag = type == :header ? :th : :td
       content = content_tag :a, content, :href => link_to if link_to
       content = content_tag :a, content, :name => anchor if anchor
