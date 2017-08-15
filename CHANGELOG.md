@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.1.1
+
 * Restore support for manual links
 
 ## 0.1.0
