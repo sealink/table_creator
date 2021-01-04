@@ -1,6 +1,7 @@
 Table Creator
 =============
 
+[![Gem Version](https://badge.fury.io/rb/table_creator.svg)](http://badge.fury.io/rb/table_creator)
 [![Build Status](https://github.com/sealink/table_creator/workflows/Build%20and%20Test/badge.svg?branch=master)](https://github.com/sealink/table_creator/actions)
 
 # DESCRIPTION
@@ -12,7 +13,7 @@ Various helpers to enter data in a tabular form and export to HTML/CSV
 See tests in spec folder for basic usage
 
 
-# Release
+# RELEASE
 
 To publish a new version of this gem the following steps must be taken.
 
