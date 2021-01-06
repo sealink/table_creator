@@ -18,7 +18,7 @@ module TableCreator
       end
 
       @data_type = case @data.class.to_s.to_sym
-      when :Fixnum
+      when :Integer
         :number
       when :String
         :text
