@@ -102,14 +102,14 @@ module TableCreator
             when :sum
               row.sum[field]
             end
-          end.compact.sum
+          end.compact.inject(:+)
         else
           @sum[field] = @rows.map do |row|
             case aggregation
             when :sum
               row.send(field) || 0 # encase result is nil
             end
-          end.compact.sum
+          end.compact.inject(:+)
         end
       end
     end
@@ -155,7 +155,7 @@ module TableCreator
             else
               rows << format[:data]
             end
-            
+
           elsif format.is_a? Array
             rows << format
           end
