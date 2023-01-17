@@ -1,5 +1,9 @@
 # Change Log
 
+## Unreleased
+
+- [PLAT-1175] Update to Ruby 3.2
+
 ## 0.3.0
 
 - [PLAT=183] Add Ruby 3.1, Rails 7 and coverage-kit upgrade
@@ -10,10 +14,10 @@
 
 ## 0.1.1
 
-* Restore support for manual links
+- Restore support for manual links
 
 ## 0.1.0
 
-* Improve class names
-* Improve formatters
-* Use coverage kit to enforce maximum coverage
+- Improve class names
+- Improve formatters
+- Use coverage kit to enforce maximum coverage
