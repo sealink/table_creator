@@ -1,5 +1,9 @@
 # Change Log
 
+## Unreleased
+
+- [PLAT-1175] Update to Ruby 3.2
+
 ## 0.3.0
 
 - [PLAT=183] Add Ruby 3.1, Rails 7 and coverage-kit upgrade
